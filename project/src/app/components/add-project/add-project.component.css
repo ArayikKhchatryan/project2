@@ -1,1 +1,43 @@
+input, select, button {
+  height: 33px;
+}
 
+input, select, textarea {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.sample p {
+  font-weight: 400;
+  color: rgba(117, 117, 117, 0.866666666666667);
+  font-size: 13px;
+}
+
+p{
+  font-family: Roboto;
+}
+
+
+.sectorButton{
+  width: 85px;
+  height: 35px;
+  color: white;
+  background-color: rgba(111, 172, 40, 1);
+  margin-left: 110px;
+}
+
+.sectorInput{
+  margin-left: 110px;
+  width: 90px;
+}
+
+
+input.ng-touched.ng-invalid {border:solid red 1px;}
+input.ng-touched.ng-valid {border:solid green 1px;}
+
+select.ng-touched.ng-invalid {border:solid red 1px;}
+/*select.ng-invalid {border:solid red 1px;}*/
+select.ng-touched.ng-valid {border:solid green 1px;}
+
+textarea.ng-touched.ng-invalid {border:solid red 1px;}
+textarea.ng-touched.ng-valid {border:solid green 1px;}

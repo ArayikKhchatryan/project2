@@ -12,12 +12,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {ProjectListComponent} from './components/project-list/project-list.component';
 import {RouterModule, Routes} from '@angular/router';
-import { AddProjectComponent } from './components/add-project/add-project.component';
+import {AddProjectComponent} from './components/add-project/add-project.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 const appRoutes: Routes = [
-  { path: 'projects', component: ProjectListComponent },
-  { path: 'project:id', component: AddProjectComponent},
-  { path: '**', redirectTo: 'projects' }
+  {path: 'projects/:id', component: AddProjectComponent},
+  {path: 'projects', component: ProjectListComponent},
+  {path: '**', redirectTo: 'projects'}
 ];
 
 @NgModule({
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatIconModule,
     RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
   ],
   providers: [ClassifierServiceService],
   bootstrap: [AppComponent]
