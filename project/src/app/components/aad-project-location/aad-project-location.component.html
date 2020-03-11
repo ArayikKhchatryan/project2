@@ -23,28 +23,47 @@
 
 
 <!--</div>-->
-<h1 mat-dialog-title>Add Project Location</h1>
-<div mat-dialog-content>
-  <mat-form-field>
-    <mat-label>County</mat-label>
-    <mat-select formControlName="sector" (valueChange)="getDistrictByParentId($event)">
-      <mat-option *ngFor="let county of counties" [value]="county.id">
-        {{county.name}}
-      </mat-option>
-    </mat-select>
+
+
+<form [formGroup]="locationsForm">
+  <h1 mat-dialog-title style="position: absolute">Add Project Location</h1>
+
+  <button mat-button mat-dialog-close="true" style="margin-left: 300px">
+    <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>County</mat-label>
+      <mat-select formControlName="county" (valueChange)="getDistrictByParentId($event)" required>
+        <mat-option *ngFor="let county of counties" [value]="county.id">
+          {{county.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field *ngIf="districts" disabled>
+      <mat-label>District</mat-label>
+      <mat-select formControlName="district" required>
+        <!--      <mat-select formControlName="district">-->
+        <mat-option *ngFor="let district of districts" [value]="district.id">
+          {{district.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field  type="number" style="text-align: center">
+    <mat-label>%</mat-label>
+    <input matInput formControlName="percent">
   </mat-form-field>
 
 
-  <mat-form-field>
-    <mat-label>County</mat-label>
-    <mat-select formControlName="sector">
-      <mat-option *ngFor="let district of districts" [value]="district.id">
-        {{district.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-<!--  <button mat-button (click)="onNoClick()">No Thanks</button>-->
-<!--  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
-</div>
+  <div mat-dialog-actions>
+
+
+    <button mat-button class="sectorButton">Add</button>
+    <!--  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
+  </div>
+</form>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ClassifierServiceService} from '../../services/classifier-service.service';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-aad-project-location',
@@ -12,7 +13,7 @@ export class AadProjectLocationComponent implements OnInit {
 
   districts:any;
 
-  constructor(private cs: ClassifierServiceService) { }
+  constructor(private cs: ClassifierServiceService, private fb: FormBuilder,) { }
 
   ngOnInit(): void {
     this.counties = this.cs.getCountyClassifier();
@@ -21,5 +22,13 @@ export class AadProjectLocationComponent implements OnInit {
   getDistrictByParentId(id: number){
     this.districts = this.cs.getDistrictByParentId(id);
   }
+
+
+  locationsForm = this.fb.group({
+    county: [],
+    district: [],
+    percent: [],
+  });
+
 
 }

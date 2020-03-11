@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ProjectService} from '../../services/project.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProjectModel} from '../../model/project.model';
-import {DummyProjectService} from '../../services/impl/dummy-project.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClassifierServiceService} from '../../services/classifier-service.service';
 import {SectorModel} from '../../model/sector.model';
@@ -38,7 +37,7 @@ export class AddProjectComponent implements OnInit {
     console.log(this.form1.value);
   }
 
-  constructor(private route: ActivatedRoute, private dummyProjectService: DummyProjectService, private cs: ClassifierServiceService, private fb: FormBuilder, public dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, private dummyProjectService: ProjectService, private cs: ClassifierServiceService, private fb: FormBuilder, public dialog: MatDialog) {
 
   }
 
@@ -113,6 +112,7 @@ export class AddProjectComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+    dialogRef.disableClose = true;
   }
 }
 

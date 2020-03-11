@@ -1,12 +1,12 @@
-input,  button {
+input, button {
   height: 33px;
 }
 
-mat-select{
+mat-select {
   height: 20px;
 }
 
-mat-label{
+mat-label {
   font-size: 16px;
 }
 
@@ -22,12 +22,7 @@ input, select, textarea {
   font-size: 13px;
 }
 
-p{
-  font-family: Roboto;
-}
-
-
-.sectorButton{
+.sectorButton {
   width: 85px;
   height: 35px;
   color: white;
@@ -35,9 +30,16 @@ p{
   margin-left: 110px;
 }
 
-.sectorInput{
+.sectorInput {
   margin-left: 110px;
   width: 90px;
+}
+
+.headerButton {
+  margin: 3px 4px;
+  width: 85px;
+  height: 35px;
+  padding: 3px
 }
 
 

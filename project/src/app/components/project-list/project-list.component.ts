@@ -1,10 +1,10 @@
 import {AfterViewChecked, Component, DoCheck, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {DummyProjectService} from '../../services/impl/dummy-project.service';
 import {ProjectModel} from '../../model/project.model';
 import {Routes} from '@angular/router';
 import {ProjectViewModel} from '../../model/project-view.model';
 import {Observable, of} from 'rxjs';
 import {ErrorMethod} from '../util/errorMethod';
+import {ProjectService} from '../../services/project.service';
 
 @Component({
   selector: 'app-project-list',
@@ -15,7 +15,7 @@ export class ProjectListComponent implements OnInit {
 
   dataSource: ProjectViewModel[] = [];
 
-  constructor(private dummyProjectService: DummyProjectService) {
+  constructor(private dummyProjectService: ProjectService) {
   }
 
   ngOnInit(): void {

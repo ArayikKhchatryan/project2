@@ -19,6 +19,9 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { AadProjectLocationComponent } from './components/aad-project-location/aad-project-location.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {ProjectService} from './services/project.service';
+import {DummyProjectService} from './services/impl/dummy-project.service';
 
 const appRoutes: Routes = [
   {path: 'projects/:id', component: AddProjectComponent},
@@ -50,9 +53,11 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
     MatSelectModule,
+    MatDialogModule,
   ],
   providers: [ClassifierServiceService,
-    MatDatepickerModule
+    MatDatepickerModule,
+    [{ provide: ProjectService, useClass: DummyProjectService }]
   ],
   bootstrap: [AppComponent]
 })
