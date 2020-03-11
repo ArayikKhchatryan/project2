@@ -1,0 +1,25 @@
+<div>
+  Add Project Location
+  <br><br><br>
+
+  <mat-form-field>
+    <mat-label>County</mat-label>
+    <mat-select formControlName="sector" (valueChange)="getDistrictByParentId($event)">
+      <mat-option *ngFor="let county of counties" [value]="county.id">
+        {{county.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-label>County</mat-label>
+    <mat-select formControlName="sector" (valueChange)="getDistrictByParentId($event)">
+      <mat-option *ngFor="let county of counties" [value]="county.id">
+        {{county.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+</div>

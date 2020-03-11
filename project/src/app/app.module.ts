@@ -18,10 +18,12 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { AadProjectLocationComponent } from './components/aad-project-location/aad-project-location.component';
 
 const appRoutes: Routes = [
   {path: 'projects/:id', component: AddProjectComponent},
   {path: 'projects', component: ProjectListComponent},
+  {path: 'projects/add/location', component: AadProjectLocationComponent},
   {path: '**', redirectTo: 'projects'}
 ];
 
@@ -30,7 +32,9 @@ const appRoutes: Routes = [
     AppComponent,
     ProjectListComponent,
     AddProjectComponent,
-    NotFoundComponent
+    AadProjectLocationComponent,
+    NotFoundComponent,
+    AadProjectLocationComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClassifierServiceService} from '../../services/classifier-service.service';
 import {SectorModel} from '../../model/sector.model';
 import {ErrorMethod} from '../util/errorMethod';
+import {AadProjectLocationComponent} from '../aad-project-location/aad-project-location.component';
+import {MatDialog} from '@angular/material/dialog';
 
 
 @Component({
@@ -36,7 +38,7 @@ export class AddProjectComponent implements OnInit {
     console.log(this.form1.value);
   }
 
-  constructor(private route: ActivatedRoute, private dummyProjectService: DummyProjectService, private cs: ClassifierServiceService, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute, private dummyProjectService: DummyProjectService, private cs: ClassifierServiceService, private fb: FormBuilder, public dialog: MatDialog) {
 
   }
 
@@ -45,7 +47,7 @@ export class AddProjectComponent implements OnInit {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.id < 0) {
-      this.project = new ProjectModel("", null, null, 0, null, null,
+      this.project = new ProjectModel('', null, null, 0, null, null,
         []);
     } else if (this.dummyProjectService.getProjectById(this.id)) {
       this.dummyProjectService.getProjectById(this.id).subscribe(res => {
@@ -66,7 +68,6 @@ export class AddProjectComponent implements OnInit {
       endDate: new FormControl(this.project.endDate),
 
 
-
       // sectors:  this.fb.group({
       //   percent: new FormControl(),
       //   sector: new FormControl(this.project.sectors),
@@ -85,7 +86,6 @@ export class AddProjectComponent implements OnInit {
     sector: [],
   });
 
-  displayedColumns: string[] = ['name', '444444'];
 
   sectorsAdd() {
     this.sectorsForm.value.sectorName = this.cs.getSectorName(this.sectorsForm.value.sector);
@@ -94,6 +94,25 @@ export class AddProjectComponent implements OnInit {
     }
     console.log(this.sectorsForm.value);
     console.log(this.sectorsArr);
+  }
+
+
+
+  displayedColumns: string[] = ['name', '444444'];
+
+  deleteSector(id) {
+
+  }
+
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AadProjectLocationComponent, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }
 

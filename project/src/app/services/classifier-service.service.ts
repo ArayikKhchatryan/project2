@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ClassifiersModel} from '../model/classifiers.model';
+import {ChildClassifierModel} from '../model/child-classifier.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,21 +18,30 @@ export class ClassifierServiceService {
   sectors_classifier: ClassifiersModel[] = [new ClassifiersModel(1, 'Health'), new ClassifiersModel(2, 'Agriculture')
     , new ClassifiersModel(3, 'Economy'), new ClassifiersModel(4, 'Administrative')];
 
+  county_classifier: ClassifiersModel[] = [new ClassifiersModel(1, 'Hayastan'), new ClassifiersModel(2, 'Rusastan')
+    , new ClassifiersModel(3, 'AMN')];
 
-  getClassifier(classifierName: string) {
-    switch (classifierName) {
-      case '1':
-        return this.implementation_Status;
-      case '2':
-        return this.sectors_classifier;
+  district_classifier: ChildClassifierModel[] = [new ChildClassifierModel(1, 1, 'Lori'), new ChildClassifierModel(1, 2, 'Ararat'),
+    new ChildClassifierModel(1, 3, 'Syuniq'), new ChildClassifierModel(1, 4, 'Armavir'), new ChildClassifierModel(2, 1, 'Krasnodar'),
+    new ChildClassifierModel(2, 2, 'Tver'), new ChildClassifierModel(2, 3, 'Stavropol'), new ChildClassifierModel(3, 1, 'California')]
+
+
+
+  getDistrictByParentId(id: number): ChildClassifierModel[]{
+    let arr: ChildClassifierModel[] = [];
+    for(let district of this.district_classifier){
+      if(district.id == id){
+        arr.push(district);
+      }
     }
+    return arr;
   }
 
-  getImpStatusClassifier(){
+  getImpStatusClassifier(): ClassifiersModel[]{
     return this.implementation_Status;
   }
 
-  getSectorsClassifier(){
+  getSectorsClassifier():  ClassifiersModel[]{
     return this.sectors_classifier;
   }
 
@@ -41,6 +51,10 @@ export class ClassifierServiceService {
         return obj.name;
       }
     }
+  }
+
+  getCountyClassifier(): ClassifiersModel[]{
+    return this.county_classifier;
   }
 
 }
