@@ -10,7 +10,7 @@ export class AadProjectLocationComponent implements OnInit {
 
   counties: any;
 
-  district:any;
+  districts:any;
 
   constructor(private cs: ClassifierServiceService) { }
 
@@ -19,7 +19,7 @@ export class AadProjectLocationComponent implements OnInit {
   }
 
   getDistrictByParentId(id: number){
-    this.district = this.cs.getDistrictByParentId(id);
+    this.districts = this.cs.getDistrictByParentId(id);
   }
 
 }

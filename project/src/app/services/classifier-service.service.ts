@@ -30,7 +30,7 @@ export class ClassifierServiceService {
   getDistrictByParentId(id: number): ChildClassifierModel[]{
     let arr: ChildClassifierModel[] = [];
     for(let district of this.district_classifier){
-      if(district.id == id){
+      if(district.parentId == id){
         arr.push(district);
       }
     }

@@ -1,7 +1,30 @@
-<div>
-  Add Project Location
-  <br><br><br>
+<!--<div>-->
+<!--  -->
+<!--  <br><br><br>-->
 
+<!--  <mat-form-field>-->
+<!--    <mat-label>County</mat-label>-->
+<!--    <mat-select formControlName="sector" (valueChange)="getDistrictByParentId($event)">-->
+<!--      <mat-option *ngFor="let county of counties" [value]="county.id">-->
+<!--        {{county.name}}-->
+<!--      </mat-option>-->
+<!--    </mat-select>-->
+<!--  </mat-form-field>-->
+
+
+<!--  <mat-form-field>-->
+<!--    <mat-label>County</mat-label>-->
+<!--    <mat-select formControlName="sector" (valueChange)="getDistrictByParentId($event)">-->
+<!--      <mat-option *ngFor="let district of districts" [value]="district.id">-->
+<!--        {{district.name}}-->
+<!--      </mat-option>-->
+<!--    </mat-select>-->
+<!--  </mat-form-field>-->
+
+
+<!--</div>-->
+<h1 mat-dialog-title>Add Project Location</h1>
+<div mat-dialog-content>
   <mat-form-field>
     <mat-label>County</mat-label>
     <mat-select formControlName="sector" (valueChange)="getDistrictByParentId($event)">
@@ -14,12 +37,14 @@
 
   <mat-form-field>
     <mat-label>County</mat-label>
-    <mat-select formControlName="sector" (valueChange)="getDistrictByParentId($event)">
-      <mat-option *ngFor="let county of counties" [value]="county.id">
-        {{county.name}}
+    <mat-select formControlName="sector">
+      <mat-option *ngFor="let district of districts" [value]="district.id">
+        {{district.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-
-
+</div>
+<div mat-dialog-actions>
+<!--  <button mat-button (click)="onNoClick()">No Thanks</button>-->
+<!--  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
 </div>
