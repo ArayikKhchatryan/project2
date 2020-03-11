@@ -14,6 +14,10 @@ import {ProjectListComponent} from './components/project-list/project-list.compo
 import {RouterModule, Routes} from '@angular/router';
 import {AddProjectComponent} from './components/add-project/add-project.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {NotFoundComponent} from './components/not-found/not-found.component';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
 const appRoutes: Routes = [
   {path: 'projects/:id', component: AddProjectComponent},
@@ -25,21 +29,27 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     ProjectListComponent,
-    AddProjectComponent
+    AddProjectComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
     MatFormFieldModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
+    MatSelectModule,
   ],
-  providers: [ClassifierServiceService],
+  providers: [ClassifierServiceService,
+    MatDatepickerModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

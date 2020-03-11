@@ -6,6 +6,7 @@ import {DummyProjectService} from '../../services/impl/dummy-project.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClassifierServiceService} from '../../services/classifier-service.service';
 import {SectorModel} from '../../model/sector.model';
+import {ErrorMethod} from '../util/errorMethod';
 
 
 @Component({
@@ -44,9 +45,12 @@ export class AddProjectComponent implements OnInit {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.id < 0) {
-      this.project = new ProjectModel(null, null, null, null, null, null, this.sectorsArr);
+      this.project = new ProjectModel("", null, null, 0, null, null,
+        []);
     } else if (this.dummyProjectService.getProjectById(this.id)) {
-      this.project = this.dummyProjectService.getProjectById(this.id);
+      this.dummyProjectService.getProjectById(this.id).subscribe(res => {
+        this.project = res;
+      }, ErrorMethod.getError);
     } else {
       alert('Id incorrect');
     }
@@ -62,10 +66,11 @@ export class AddProjectComponent implements OnInit {
       endDate: new FormControl(this.project.endDate),
 
 
-      sectors:  this.fb.group({
-        percent: new FormControl(),
-        sector: new FormControl(this.project.sectors),
-      })
+
+      // sectors:  this.fb.group({
+      //   percent: new FormControl(),
+      //   sector: new FormControl(this.project.sectors),
+      // })
 
 
       // ectorsForm: this.fb.group({
@@ -80,6 +85,7 @@ export class AddProjectComponent implements OnInit {
     sector: [],
   });
 
+  displayedColumns: string[] = ['name', '444444'];
 
   sectorsAdd() {
     this.sectorsForm.value.sectorName = this.cs.getSectorName(this.sectorsForm.value.sector);

@@ -33,19 +33,20 @@
 
     </table>
 
-    <div style="height: 100px"></div>
+<!--    <div style="height: 100px"></div>-->
     <!--    <table matSort (matSortChange)="sortData ($ event)">-->
-        <table class="mat-elevation-z8" style="background-color: white">
-          <tr>
-            <th mat-sort-header="name" style="width: 100%">Project Name
-            </th>
-          </tr>
 
-          <tr *ngFor="let i of dataSource">
-            <td> {{i.projectTitle}} </td>
-            <mat-icon aria-hidden="false" (click)="deleteProject(i.id)">clear</mat-icon>
-          </tr>
-        </table>
+<!--        <table class="mat-elevation-z8" style="background-color: white">-->
+<!--          <tr>-->
+<!--            <th mat-sort-header="name" style="width: 100%">Project Name-->
+<!--            </th>-->
+<!--          </tr>-->
+
+<!--          <tr *ngFor="let i of dataSource">-->
+<!--            <td> {{i.projectTitle}} </td>-->
+<!--            <mat-icon aria-hidden="false" (click)="deleteProject(i.id)">clear</mat-icon>-->
+<!--          </tr>-->
+<!--        </table>-->
 
     <button class="sectors" style="background-color: limegreen" mat-button routerLink="/projects/-1">ADD</button>
 
