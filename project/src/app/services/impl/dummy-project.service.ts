@@ -12,17 +12,18 @@ import {coerceNumberProperty} from '@angular/cdk/coercion';
 })
 export class DummyProjectService extends ProjectService {
   projectList: ProjectModel[] = [new ProjectModel('00project code', '00project title', 'description', 1, new Date(1010), new Date(),
-    [new SectorModel(1, '1', 15)]),
+    [new SectorModel(1,  15)]),
     new ProjectModel('111', '111project title 2000', 'description 22', 2, new Date(), new Date(),
-      [new SectorModel(2, '2', 51)]),
+      [new SectorModel(2,  51), new SectorModel(1,  10)]),
     new ProjectModel('2222project code 22', '222project title 22', 'description 22', 2, new Date(), new Date(),
-      [new SectorModel(2, '3', 51)]),
+      [new SectorModel(3,  7), new SectorModel(2,  51)]),
     new ProjectModel('333333project code 22', '333project title 22', 'description 22', 2, new Date(), new Date(),
-      [new SectorModel(3, '4', 51)]),
+      [new SectorModel(3,  51), new SectorModel(2,  3),]),
     new ProjectModel('44444project code 22', '444project title 22', 'description 22', 2, new Date(), new Date(),
-      [new SectorModel(2, '5', 51)]),
+      [new SectorModel(2,  51)]),
     new ProjectModel('5555project code 22', '555project title 22', 'description 22', 2, new Date(), new Date(),
-      [new SectorModel(2, '6', 51)])];
+      [new SectorModel(1,  31), new SectorModel(2,  28), new SectorModel(3,  30), new SectorModel(4,  11),]
+    )];
 
   projectViewList: ProjectViewModel[] = [];
   // [new ProjectViewModel(1, 'title1'), new ProjectViewModel(2, 'title2'), new ProjectViewModel(1, 'title3'),

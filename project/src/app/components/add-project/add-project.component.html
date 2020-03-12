@@ -20,9 +20,9 @@
         style="background-color:  rgba(111, 172, 40, 1); " mat-button class="headerButton">
         CANCEL
       </button>
-      <button mat-raised-button class="headerButton">SAVE</button>
+      <button mat-raised-button class="headerButton" type="submit" (click)="saveProject()">SAVE</button>
 
-      <button mat-raised-button class="headerButton" style="width: 100px">SEVE & CLOSE
+      <button mat-raised-button class="headerButton" style="width: 100px" (click)="saveProject()" routerLink="/projects">SEVE & CLOSE
       </button>
 
       <button type="submit"  style="color: black" [disabled]="!form1.valid">{{form1.status}}</button>
@@ -95,8 +95,6 @@
         <mat-form-field>
           <mat-label>Implementation Status</mat-label>
           <mat-select formControlName="implementationStatus" required>
-            <mat-option [value]="0">-Select-
-            </mat-option>
             <mat-option *ngFor="let status of imp_statuses" [value]="status.id">
               {{status.name}}
             </mat-option>
@@ -106,7 +104,7 @@
 
         <mat-form-field style="margin-left: 85px">
           <mat-label>Planned Start Date</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="startDate" required>
+          <input matInput [matDatepicker]="picker" formControlName="startDate" (dateChange)="getDate()" required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -164,7 +162,7 @@
 
           <table border="1px">
             <tr *ngFor="let i of sectorsArr">
-              <td style="width: 400px; height: 50px">{{i.sectorName}}</td>
+              <td style="width: 400px; height: 50px">{{getSectorName(i.sector)}}</td>
               <td style="width: 300px; height: 50px">{{i.percent}}</td>
             </tr>
           </table>
@@ -222,7 +220,7 @@
           <!--          </select>-->
 
           <mat-form-field>
-            <mat-label>Implementation Status</mat-label>
+            <mat-label>Sector</mat-label>
             <mat-select formControlName="sector">
               <mat-option *ngFor="let sector of sectors" [value]="sector.id">
                 {{sector.name}}

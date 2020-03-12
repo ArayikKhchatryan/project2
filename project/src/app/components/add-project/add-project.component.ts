@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ProjectService} from '../../services/project.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProjectModel} from '../../model/project.model';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -8,6 +7,7 @@ import {SectorModel} from '../../model/sector.model';
 import {ErrorMethod} from '../util/errorMethod';
 import {AadProjectLocationComponent} from '../aad-project-location/aad-project-location.component';
 import {MatDialog} from '@angular/material/dialog';
+import {ProjectService} from '../../services/project.service';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class AddProjectComponent implements OnInit {
 
   id: number;
 
-  project: ProjectModel;
+  project: ProjectModel = new ProjectModel();
 
   form1;
 
@@ -43,6 +43,7 @@ export class AddProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.sectors = this.cs.getSectorsClassifier();
+
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.id < 0) {
@@ -51,6 +52,8 @@ export class AddProjectComponent implements OnInit {
     } else if (this.dummyProjectService.getProjectById(this.id)) {
       this.dummyProjectService.getProjectById(this.id).subscribe(res => {
         this.project = res;
+        this.sectorsArr = this.project.sectors;
+        console.log(this.project.sectors)
       }, ErrorMethod.getError);
     } else {
       alert('Id incorrect');
@@ -65,6 +68,7 @@ export class AddProjectComponent implements OnInit {
       implementationStatus: new FormControl(this.project.impStatusId, [Validators.required, Validators.min(1)]),
       startDate: new FormControl(this.project.startDate, Validators.required),
       endDate: new FormControl(this.project.endDate),
+
 
 
       // sectors:  this.fb.group({
@@ -86,16 +90,18 @@ export class AddProjectComponent implements OnInit {
   });
 
 
+
+
   sectorsAdd() {
-    this.sectorsForm.value.sectorName = this.cs.getSectorName(this.sectorsForm.value.sector);
+    this.sectorsForm.value.sectorName = this.sectorsForm.value.sector;
     if (this.sectorsForm.value.sector && this.sectorsForm.value.percent) {
       this.sectorsArr.push(this.sectorsForm.value);
     }
-    console.log(this.sectorsForm.value);
-    console.log(this.sectorsArr);
   }
 
-
+  getSectorName(sectorId){
+    return this.cs.getSectorName(sectorId);
+  }
 
   displayedColumns: string[] = ['name', '444444'];
 
@@ -113,6 +119,23 @@ export class AddProjectComponent implements OnInit {
       console.log('The dialog was closed');
     });
     dialogRef.disableClose = true;
+  }
+
+  getDate(){
+
+  }
+
+  saveProject(){
+    this.project = this.form1.value;
+    this.project.sectors = this.sectorsArr;
+    this.project.id = 15;
+    this.dummyProjectService.addProject(this.project);
+
+    console.log("-------------------------------------------------------------------------");
+    console.log(this.dummyProjectService.getProjects());
+    console.log(this.project);
+    console.log("-------------------------------------------------------------------------");
+
   }
 }
 

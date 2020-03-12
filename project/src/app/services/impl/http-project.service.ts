@@ -17,11 +17,12 @@ export class HttpProjectService extends ProjectService{
     return undefined;
   }
 
-  getProjects(): Observable<ProjectViewModel>[] {
-    return [];
-  }
 
   updateProject(project: ProjectModel): Observable<Response> {
+    return undefined;
+  }
+
+  getProjects(): Observable<ProjectViewModel[]> {
     return undefined;
   }
 

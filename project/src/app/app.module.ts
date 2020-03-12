@@ -56,7 +56,7 @@ const appRoutes: Routes = [
     MatDialogModule,
   ],
   providers: [ClassifierServiceService,
-    MatDatepickerModule,
+    // MatDatepickerModule,
     [{ provide: ProjectService, useClass: DummyProjectService }]
   ],
   bootstrap: [AppComponent]
