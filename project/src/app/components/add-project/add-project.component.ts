@@ -8,6 +8,7 @@ import {ErrorMethod} from '../util/errorMethod';
 import {AadProjectLocationComponent} from '../aad-project-location/aad-project-location.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ProjectService} from '../../services/project.service';
+import {LocationModel} from '../../model/location.model';
 
 
 @Component({
@@ -33,6 +34,8 @@ export class AddProjectComponent implements OnInit {
 
   sectorsArr: SectorModel[] = [];
 
+  locationsArr: LocationModel[] = [];
+
   onSubmit() {
     console.log(this.form1.value);
   }
@@ -42,6 +45,10 @@ export class AddProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dummyProjectService.getLocations().subscribe(res =>{
+      this.locationsArr = res;
+    });
+
     this.sectors = this.cs.getSectorsClassifier();
 
     this.id = Number(this.route.snapshot.paramMap.get('id'));
@@ -53,7 +60,7 @@ export class AddProjectComponent implements OnInit {
       this.dummyProjectService.getProjectById(this.id).subscribe(res => {
         this.project = res;
         this.sectorsArr = this.project.sectors;
-        console.log(this.project.sectors)
+        console.log(this.project.sectors);
       }, ErrorMethod.getError);
     } else {
       alert('Id incorrect');
@@ -70,14 +77,13 @@ export class AddProjectComponent implements OnInit {
       endDate: new FormControl(this.project.endDate),
 
 
-
       // sectors:  this.fb.group({
       //   percent: new FormControl(),
       //   sector: new FormControl(this.project.sectors),
       // })
 
 
-      // ectorsForm: this.fb.group({
+      // sectorsForm: this.fb.group({
       //   percent: [''],
       //   sector: [undefined],
       // }),
@@ -90,8 +96,6 @@ export class AddProjectComponent implements OnInit {
   });
 
 
-
-
   sectorsAdd() {
     this.sectorsForm.value.sectorName = this.sectorsForm.value.sector;
     if (this.sectorsForm.value.sector && this.sectorsForm.value.percent) {
@@ -99,7 +103,7 @@ export class AddProjectComponent implements OnInit {
     }
   }
 
-  getSectorName(sectorId){
+  getSectorName(sectorId) {
     return this.cs.getSectorName(sectorId);
   }
 
@@ -121,22 +125,37 @@ export class AddProjectComponent implements OnInit {
     dialogRef.disableClose = true;
   }
 
-  getDate(){
+  getDate() {
 
   }
 
-  saveProject(){
-    this.project = this.form1.value;
-    this.project.sectors = this.sectorsArr;
-    this.project.id = 15;
-    this.dummyProjectService.addProject(this.project);
 
-    console.log("-------------------------------------------------------------------------");
-    console.log(this.dummyProjectService.getProjects());
-    console.log(this.project);
-    console.log("-------------------------------------------------------------------------");
+  saveProject() {
+    const obj = this.form1.value;
+    this.project = new ProjectModel(obj.projectCode, obj.projectTitle, obj.description, obj.implementationStatus, obj.startDate, obj.endDate, this.sectorsArr);
 
+    if (this.id < 0) {
+      // console.log(this.project);
+      // this.project  = this.form1.value;
+      // // this.project.id = 2;
+      // this.dummyProjectService.getProjects().subscribe(res => {
+      //   console.log(res.length);
+      //   this.project.id = res.length;
+      // });
+      // this.project.sectors = this.sectorsArr;
+      this.dummyProjectService.addProject(this.project);
+
+      // console.log("-------------------------------------------------------------------------");
+      // console.log(this.dummyProjectService.getProjects() + "asasasasaaaaaaaaaaaaaaa");
+      // console.log(this.project);
+      // console.log("-------------------------------------------------------------------------");
+    } else {
+      this.project.id = this.id;
+      this.dummyProjectService.updateProject(this.project);
+    }
   }
+
+
 }
 
 

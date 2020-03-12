@@ -2,6 +2,7 @@ import {ProjectModel} from '../model/project.model';
 import {Injectable} from '@angular/core';
 import {ProjectViewModel} from '../model/project-view.model';
 import {Observable} from 'rxjs';
+import {LocationModel} from '../model/location.model';
 
 @Injectable()
 export abstract class ProjectService {
@@ -17,9 +18,14 @@ export abstract class ProjectService {
 
   abstract updateProject(project: ProjectModel):  Observable<Response>;
 
+  abstract addLocation(location: LocationModel): Observable<Response>;
+
+  abstract getLocations(): Observable<LocationModel[]>;
+
 }
 
 export class Response {
   constructor(public status: boolean, public validations?: string[], public newId?: number) {
+
   }
 }

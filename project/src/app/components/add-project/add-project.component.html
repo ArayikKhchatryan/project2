@@ -1,5 +1,5 @@
 <form [formGroup]="form1" (ngSubmit)="onSubmit()">
-  <div style="position: fixed; color: white; z-index: 1000" >
+  <div style="position: fixed; color: white; z-index: 1000">
 
     <div style="position:fixed;">
       <img src="assets/addProjectHeader.png" width="117%" height="150px">
@@ -17,15 +17,18 @@
 
     <div style="position: fixed; margin-left: 1200px">
       <button
-        style="background-color:  rgba(111, 172, 40, 1); " mat-button class="headerButton">
+        style="background-color:  rgba(111, 172, 40, 1); " mat-button class="headerButton" routerLink="/projects">
         CANCEL
       </button>
-      <button mat-raised-button class="headerButton" type="submit" (click)="saveProject()">SAVE</button>
-
-      <button mat-raised-button class="headerButton" style="width: 100px" (click)="saveProject()" routerLink="/projects">SEVE & CLOSE
+      <button mat-raised-button [disabled]="!form1.valid" class="headerButton" type="submit" (click)="saveProject()">
+        SAVE
       </button>
 
-      <button type="submit"  style="color: black" [disabled]="!form1.valid">{{form1.status}}</button>
+      <button mat-raised-button [disabled]="!form1.valid" class="headerButton" style="width: 100px"
+              (click)="saveProject()" routerLink="/projects">SEVE & CLOSE
+      </button>
+
+      <!--      <button type="submit"  style="color: black" [disabled]="!form1.valid">{{form1.status}}</button>-->
     </div>
 
 
@@ -157,7 +160,7 @@
         style="margin-top: 34px; margin-left:  155px; background-color: white; width: 1240px; padding: 22px; padding-bottom: 50px">
         <p style="font-size: 16px">Sectors (in line table)</p><br>
         <div>
-          <p *ngIf="sectorsArr.length>0">Sector Name <span style="margin-left: 590px">%</span></p>
+          <p *ngIf="sectorsArr.length>0">Sector Name <span style="margin-left: 320px">%</span></p>
 
 
           <table border="1px">
@@ -232,7 +235,7 @@
 
           <mat-form-field class="sectorInput" type="number" style="text-align: center">
             <mat-label>%</mat-label>
-            <input matInput formControlName="percent" >
+            <input matInput formControlName="percent">
           </mat-form-field>
 
 
@@ -249,8 +252,18 @@
     <p style="font-size: 16px">Project Locations (pop-up table)</p><br>
 
 
-    <div style="height: 200px">
+    <div style="height: 20px">
     </div>
+
+
+    <p *ngIf="locationsArr.length>0">County <span style="margin-left: 203px">Districts</span><span style="margin-left: 250px">%</span></p>
+    <table border="1px" style="margin: 10px 0  ">
+      <tr *ngFor="let location of locationsArr">
+        <td style="width: 250px; height: 50px">{{location.countyId}}</td>
+        <td style="width: 300px; height: 50px">{{location.districtId}}</td>
+        <td style="width: 300px; height: 50px">{{location.percent}}</td>
+      </tr>
+    </table>
 
     <button class="sectorButton" style="margin-left: 0" mat-button (click)="openDialog()">ADD</button>
 
