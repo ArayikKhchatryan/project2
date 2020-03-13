@@ -36,6 +36,8 @@ export class AddProjectComponent implements OnInit {
 
   locationsArr: LocationModel[] = [];
 
+  duration: number = null;
+
   onSubmit() {
     console.log(this.form1.value);
   }
@@ -44,30 +46,7 @@ export class AddProjectComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    // this.projectService.getLocations().subscribe(res => {
-    //   this.locationsArr = res;
-    // });
-
-    this.sectors = this.cs.getSectorsClassifier();
-
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-
-    if (this.id < 0) {
-      this.project = new ProjectModel('', null, null, 0, null, null, []);
-    } else  {
-      this.projectService.getProjectById(this.id).subscribe(res => {
-        alert('Id incorrect');
-        this.project = res;
-        this.sectorsArr = this.project.sectors;
-        console.log(this.project.sectors);
-      }, ErrorMethod.getError);
-    }
-      // else {
-    //   alert('Id incorrect');
-    // }
-
-
+  addForm() {
     this.form1 = new FormGroup({
       // projectCode: new FormControl('', [Validators.required, Validators.nullValidator({})]),
       projectCode: new FormControl(this.project.projectCode, [Validators.required]),
@@ -89,9 +68,41 @@ export class AddProjectComponent implements OnInit {
       //   sector: [undefined],
       // }),
     });
+  }
+
+  isReady: Boolean = false;
+
+  ngOnInit(): void {
+    // this.projectService.getLocations().subscribe(res => {
+    //   this.locationsArr = res;
+    // });
+
+    this.sectors = this.cs.getSectorsClassifier();
+
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (this.id < 0) {
+      this.project = new ProjectModel('', null, null, 0, null, null, []);
+      this.isReady = true;
+    } else {
+      this.projectService.getProjectById(this.id).subscribe(res => {
+        // alert('Id incorrect');
+        this.project = res;
+        this.sectorsArr = this.project.sectors;
+        console.log(this.project.sectors);
+
+        this.addForm();
+        this.isReady = true;
+
+        this.getDate();
+      }, ErrorMethod.getError);
+    }
 
 
-    this.getDate();
+    // else {
+    //   alert('Id incorrect');
+    // }
+
   }
 
   sectorsForm = this.fb.group({
@@ -132,7 +143,6 @@ export class AddProjectComponent implements OnInit {
     dialogRef.disableClose = true;
   }
 
-  duration: number = null;
 
   getDate() {
     let startDate = new Date(this.form1.value.startDate).getTime();
@@ -168,11 +178,6 @@ export class AddProjectComponent implements OnInit {
       // });
       // this.project.sectors = this.sectorsArr;
       this.projectService.addProject(this.project);
-
-      // console.log("-------------------------------------------------------------------------");
-      // console.log(this.projectService.getProjects() + "asasasasaaaaaaaaaaaaaaa");
-      // console.log(this.project);
-      // console.log("-------------------------------------------------------------------------");
     } else {
       this.project.id = this.id;
       this.projectService.updateProject(this.project);

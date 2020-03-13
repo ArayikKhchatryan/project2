@@ -5,6 +5,7 @@ import {ProjectViewModel} from '../../model/project-view.model';
 import {Observable, of} from 'rxjs';
 import {ErrorMethod} from '../util/errorMethod';
 import {ProjectService} from '../../services/project.service';
+import {tryReadFile} from 'tslint/lib/files/reading';
 
 @Component({
   selector: 'app-project-list',
@@ -13,7 +14,9 @@ import {ProjectService} from '../../services/project.service';
 })
 export class ProjectListComponent implements OnInit {
 
-  dataSource: ProjectViewModel[] = [];
+  dataSource: ProjectViewModel[];
+
+  isReady: Boolean = false;
 
   constructor(private dummyProjectService: ProjectService) {
   }
@@ -22,7 +25,7 @@ export class ProjectListComponent implements OnInit {
     this.dummyProjectService.getProjects().subscribe((res) => {
       this.dataSource = res;
       console.log(res);
-      console.log("aaaaaaaaaaaaaaaa");
+      this.isReady = true;
     }, ErrorMethod.getError);
     // alert(this.dummyProjectService.projectViewList);
 

@@ -7,6 +7,7 @@ import {Observable, of} from 'rxjs';
 import {Response} from '../project.service';
 import {coerceNumberProperty} from '@angular/cdk/coercion';
 import {LocationModel} from '../../model/location.model';
+import {delay} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,7 @@ export class DummyProjectService extends ProjectService {
   getProjectById(id: number): Observable<ProjectModel> {
     for (let project of this.projectList) {
       if (id == project.id) {
-        return of(project);
+        return of(project).pipe(delay(3000));
       }
     }
     return undefined;
@@ -50,7 +51,7 @@ export class DummyProjectService extends ProjectService {
 
   getProjects(): Observable<ProjectViewModel[]> {
     this.getProjectViewList();
-    return of(this.projectViewList);
+    return of(this.projectViewList).pipe(delay(3000));
   }
 
   addProject(project: ProjectModel): Observable<Response> {
