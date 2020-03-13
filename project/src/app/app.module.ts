@@ -13,7 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {ProjectListComponent} from './components/project-list/project-list.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AddProjectComponent} from './components/add-project/add-project.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
@@ -54,6 +54,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     MatSelectModule,
     MatDialogModule,
+    FormsModule,
   ],
   providers: [ClassifierServiceService,
     // MatDatepickerModule,

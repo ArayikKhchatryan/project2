@@ -24,7 +24,7 @@ export class AddProjectComponent implements OnInit {
 
   id: number;
 
-  project: ProjectModel = new ProjectModel();
+  project: ProjectModel;
 
   form1;
 
@@ -40,31 +40,32 @@ export class AddProjectComponent implements OnInit {
     console.log(this.form1.value);
   }
 
-  constructor(private route: ActivatedRoute, private dummyProjectService: ProjectService, private cs: ClassifierServiceService, private fb: FormBuilder, public dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, private projectService: ProjectService, private cs: ClassifierServiceService, private fb: FormBuilder, public dialog: MatDialog) {
 
   }
 
   ngOnInit(): void {
-    this.dummyProjectService.getLocations().subscribe(res =>{
-      this.locationsArr = res;
-    });
+    // this.projectService.getLocations().subscribe(res => {
+    //   this.locationsArr = res;
+    // });
 
     this.sectors = this.cs.getSectorsClassifier();
 
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.id < 0) {
-      this.project = new ProjectModel('', null, null, 0, null, null,
-        []);
-    } else if (this.dummyProjectService.getProjectById(this.id)) {
-      this.dummyProjectService.getProjectById(this.id).subscribe(res => {
+      this.project = new ProjectModel('', null, null, 0, null, null, []);
+    } else  {
+      this.projectService.getProjectById(this.id).subscribe(res => {
+        alert('Id incorrect');
         this.project = res;
         this.sectorsArr = this.project.sectors;
         console.log(this.project.sectors);
       }, ErrorMethod.getError);
-    } else {
-      alert('Id incorrect');
     }
+      // else {
+    //   alert('Id incorrect');
+    // }
 
 
     this.form1 = new FormGroup({
@@ -75,7 +76,7 @@ export class AddProjectComponent implements OnInit {
       implementationStatus: new FormControl(this.project.impStatusId, [Validators.required, Validators.min(1)]),
       startDate: new FormControl(this.project.startDate, Validators.required),
       endDate: new FormControl(this.project.endDate),
-
+      duration: new FormControl(),
 
       // sectors:  this.fb.group({
       //   percent: new FormControl(),
@@ -88,6 +89,9 @@ export class AddProjectComponent implements OnInit {
       //   sector: [undefined],
       // }),
     });
+
+
+    this.getDate();
   }
 
   sectorsForm = this.fb.group({
@@ -95,11 +99,14 @@ export class AddProjectComponent implements OnInit {
     sector: [],
   });
 
-
   sectorsAdd() {
     this.sectorsForm.value.sectorName = this.sectorsForm.value.sector;
     if (this.sectorsForm.value.sector && this.sectorsForm.value.percent) {
       this.sectorsArr.push(this.sectorsForm.value);
+
+      // this.sectorsForm.value.sector = 0;
+      // this.sectorsForm.value.sector == [];
+      // this.sectorsForm.value.percent == [];
     }
   }
 
@@ -120,13 +127,30 @@ export class AddProjectComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.locationsArr.push(result);
     });
     dialogRef.disableClose = true;
   }
 
-  getDate() {
+  duration: number = null;
 
+  getDate() {
+    let startDate = new Date(this.form1.value.startDate).getTime();
+    let endDate = new Date(this.form1.value.endDate).getTime();
+    if (this.form1.value.startDate && this.form1.value.endDate) {
+      let tarb = endDate - startDate;
+      let orTarb = tarb / (60 * 60 * 24 * 1000);
+      this.form1.value.duration = Math.floor(orTarb);
+      // alert(this.form1.value.duration);
+      // this.form1.value.description = 'aa';
+    } else if (this.form1.value.startDate && this.form1.value.duration) {
+
+      // this.form1.value.endDate = this.form1.value.startDate + this.form1.value.duration;
+      this.form1.value.endDate = new Date();
+      // alert(this.form1.value.duration)
+      this.form1.value.endDate.setDate(Number(this.form1.value.startDate.getDate()) + Number(this.form1.value.duration));
+      // alert(this.form1.value.endDate);
+    }
   }
 
 
@@ -138,20 +162,20 @@ export class AddProjectComponent implements OnInit {
       // console.log(this.project);
       // this.project  = this.form1.value;
       // // this.project.id = 2;
-      // this.dummyProjectService.getProjects().subscribe(res => {
+      // this.projectService.getProjects().subscribe(res => {
       //   console.log(res.length);
       //   this.project.id = res.length;
       // });
       // this.project.sectors = this.sectorsArr;
-      this.dummyProjectService.addProject(this.project);
+      this.projectService.addProject(this.project);
 
       // console.log("-------------------------------------------------------------------------");
-      // console.log(this.dummyProjectService.getProjects() + "asasasasaaaaaaaaaaaaaaa");
+      // console.log(this.projectService.getProjects() + "asasasasaaaaaaaaaaaaaaa");
       // console.log(this.project);
       // console.log("-------------------------------------------------------------------------");
     } else {
       this.project.id = this.id;
-      this.dummyProjectService.updateProject(this.project);
+      this.projectService.updateProject(this.project);
     }
   }
 

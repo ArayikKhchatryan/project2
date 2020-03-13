@@ -18,9 +18,9 @@ export abstract class ProjectService {
 
   abstract updateProject(project: ProjectModel):  Observable<Response>;
 
-  abstract addLocation(location: LocationModel): Observable<Response>;
+  // abstract addLocation(location: LocationModel): Observable<Response>;
 
-  abstract getLocations(): Observable<LocationModel[]>;
+  // abstract getLocations(): Observable<LocationModel[]>;
 
 }
 

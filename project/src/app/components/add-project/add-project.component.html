@@ -25,7 +25,7 @@
       </button>
 
       <button mat-raised-button [disabled]="!form1.valid" class="headerButton" style="width: 100px"
-              (click)="saveProject()" routerLink="/projects">SEVE & CLOSE
+              (click)="saveProject()" routerLink="/projects">SAVE & CLOSE
       </button>
 
       <!--      <button type="submit"  style="color: black" [disabled]="!form1.valid">{{form1.status}}</button>-->
@@ -126,7 +126,7 @@
 
         <mat-form-field style="margin-left: 85px">
           <mat-label>Planned End Date</mat-label>
-          <input matInput [matDatepicker]="picker1" formControlName="endDate">
+          <input matInput [matDatepicker]="picker1" [value]="form1.value.endDate" formControlName="endDate" (dateChange)="getDate()">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
@@ -143,8 +143,10 @@
 
         <mat-form-field style=" margin-left: 85px">
           <mat-label>Duration</mat-label>
-          <input matInput>
+          <input matInput formControlName="duration" [value]="form1.value.duration" (change)="getDate()" >
         </mat-form-field>
+
+
       </div>
 
       <!--      <button type="submit" [disabled]="!form1.valid">{{form1.status}}</button>-->
@@ -276,6 +278,8 @@
 </form>
 
 
+
+<!--<input [(ngModel)]="duration" (change)="getDate()">-->
 
 
 

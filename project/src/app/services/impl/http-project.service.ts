@@ -28,12 +28,12 @@ export class HttpProjectService extends ProjectService{
     return undefined;
   }
 
-  getLocations(): Observable<LocationModel[]> {
-    return undefined;
-  }
-
-  addLocation(location: LocationModel): Observable<Response> {
-    return undefined;
-  }
+  // getLocations(): Observable<LocationModel[]> {
+  //   return undefined;
+  // }
+  //
+  // addLocation(location: LocationModel): Observable<Response> {
+  //   return undefined;
+  // }
 
 }

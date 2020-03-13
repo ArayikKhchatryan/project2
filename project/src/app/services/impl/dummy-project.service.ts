@@ -32,7 +32,7 @@ export class DummyProjectService extends ProjectService {
   // new ProjectViewModel(2, 'title4'),new ProjectViewModel(1, 'title5'),
   // new ProjectViewModel(2, 'title6'),new ProjectViewModel(1, 'title7'), new ProjectViewModel(2, 'title8'), ];
 
-  projectLocations: LocationModel[] = [];
+  // projectLocations: LocationModel[] = [];
 
   private getProjectViewList() {
     this.projectViewList = this.projectList.map(project => new ProjectViewModel(project.id, project.projectTitle));
@@ -75,12 +75,12 @@ export class DummyProjectService extends ProjectService {
     return of(new Response(true));
   }
 
-  addLocation(location: LocationModel): Observable<Response> {
-    this.projectLocations.push(location);
-    return of(new Response(true));
-  }
-
-  getLocations(): Observable<LocationModel[]> {
-    return of(this.projectLocations);
-  }
+  // addLocation(location: LocationModel): Observable<Response> {
+  //   this.projectLocations.push(location);
+  //   return of(new Response(true));
+  // }
+  //
+  // getLocations(): Observable<LocationModel[]> {
+  //   return of(this.projectLocations);
+  // }
 }
