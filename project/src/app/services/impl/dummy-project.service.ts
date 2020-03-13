@@ -56,24 +56,24 @@ export class DummyProjectService extends ProjectService {
 
   addProject(project: ProjectModel): Observable<Response> {
     this.projectList.push(project);
-    return of(new Response(true, null, 1));
+    return of(new Response(true, null, 1)).pipe(delay(3000));
   }
 
   deleteProjectById(id: number): Observable<Response> {
     const filtered = this.projectList.filter(project => project.id !== id);
     if (filtered.length < this.projectList.length) {
       this.projectList = filtered;
-      return of(new Response(true));
+      return of(new Response(true)).pipe(delay(3000));
     }
 
-    return of(new Response(false));
+    return of(new Response(false)).pipe(delay(3000));
 
   }
 
   updateProject(project: ProjectModel): Observable<Response> {
     this.deleteProjectById(project.id);
     this.addProject(project);
-    return of(new Response(true));
+    return of(new Response(true)).pipe(delay(3000));
   }
 
   // addLocation(location: LocationModel): Observable<Response> {

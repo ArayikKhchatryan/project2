@@ -83,6 +83,7 @@ export class AddProjectComponent implements OnInit {
 
     if (this.id < 0) {
       this.project = new ProjectModel('', null, null, 0, null, null, []);
+      this.addForm();
       this.isReady = true;
     } else {
       this.projectService.getProjectById(this.id).subscribe(res => {
