@@ -27,7 +27,7 @@ export class AadProjectLocationComponent implements OnInit {
 
 
   constructor(private cs: ClassifierServiceService, private fb: FormBuilder, private projectService: ProjectService, private dialogRef: MatDialogRef<AddProjectComponent>,
-              @Inject(MAT_DIALOG_DATA) public location: LocationModel = new LocationModel()) {
+              @Inject(MAT_DIALOG_DATA) public location: location ) {
   }
 
   onNoClick(): void {
@@ -71,4 +71,10 @@ export class AadProjectLocationComponent implements OnInit {
   //
 
 
+}
+
+interface location {
+   countyId?: number,
+  districtId?: number,
+  percent?: number
 }
