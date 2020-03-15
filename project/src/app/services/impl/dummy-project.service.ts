@@ -84,4 +84,8 @@ export class DummyProjectService extends ProjectService {
   // getLocations(): Observable<LocationModel[]> {
   //   return of(this.projectLocations);
   // }
+
+  getNewProject(){
+    return of (new ProjectModel('', null, null, 0, null, null, []));
+  }
 }

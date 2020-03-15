@@ -17,8 +17,21 @@ export class AadProjectLocationComponent implements OnInit {
 
   districts: any;
 
+  // location: LocationModel;
+
+  // country;
+
+  // district;
+
+  // percent;
+
+
   constructor(private cs: ClassifierServiceService, private fb: FormBuilder, private projectService: ProjectService, private dialogRef: MatDialogRef<AddProjectComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: LocationModel) {
+              @Inject(MAT_DIALOG_DATA) public location: LocationModel = new LocationModel()) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   ngOnInit(): void {
@@ -30,30 +43,32 @@ export class AadProjectLocationComponent implements OnInit {
   }
 
 
-  locationsForm = this.fb.group({
-    county: [],
-    district: [],
-    percent: [],
-  });
+  // locationsForm = this.fb.group({
+  //   county: [],
+  //   district: [],
+  //   percent: [],
+  // });
 
   // onNoClick(): void {
   //   this.dialogRef.close();
     // this.
   // }
 
-  addLocation() {
-    this.dialogRef.close();
-  //   if (this.locationsForm.value.county && this.locationsForm.value.district) {
-  //     let obj = this.locationsForm.value;
-  //     let newLocation = new LocationModel(obj.county, obj.district, obj.percent);
-  //     this.projectService.addLocation(newLocation);
+  // addLocation() {
+  //   this.dialogRef.close();
+  //
+  //   this.location = new LocationModel(this.country, this.district, this.percent);
+  //   // if (this.locationsForm.value.county && this.locationsForm.value.district) {
+  //   //   let obj = this.locationsForm.value;
+  //   //   let newLocation = new LocationModel(obj.county, obj.district, obj.percent);
+  //   //   this.projectService.addLocation(newLocation);
   //     // alert(obj.percent);
   //     // console.log(newLocation);
   //     // console.log(obj.percent);
-  //     console.log(this.projectService.getLocations());
-  //   }
-  }
-
+  //     // console.log(this.projectService.getLocations());
+  // //   }
+  // }
+  //
 
 
 }

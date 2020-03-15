@@ -26,6 +26,22 @@ export class ClassifierServiceService {
     new ChildClassifierModel(2, 2, 'Tver'), new ChildClassifierModel(2, 3, 'Stavropol'), new ChildClassifierModel(3, 1, 'California')]
 
 
+  getCountyNameById(_id): string{
+    for(let obj of this.county_classifier){
+      if(obj.id == _id){
+        return obj.name;
+      }
+    }
+  }
+
+  getDistrictNameById(_id, parentId): string{
+    let dist = this.getDistrictByParentId(parentId);
+    for(let obj of dist){
+      if(obj.id == _id){
+        return obj.name;
+      }
+    }
+  }
 
   getDistrictByParentId(id: number): ChildClassifierModel[]{
     let arr: ChildClassifierModel[] = [];

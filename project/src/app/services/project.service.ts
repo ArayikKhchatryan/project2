@@ -1,7 +1,7 @@
 import {ProjectModel} from '../model/project.model';
 import {Injectable} from '@angular/core';
 import {ProjectViewModel} from '../model/project-view.model';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {LocationModel} from '../model/location.model';
 
 @Injectable()
@@ -21,6 +21,8 @@ export abstract class ProjectService {
   // abstract addLocation(location: LocationModel): Observable<Response>;
 
   // abstract getLocations(): Observable<LocationModel[]>;
+
+  getNewProject(){};
 
 }
 

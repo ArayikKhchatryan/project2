@@ -122,8 +122,16 @@ export class AddProjectComponent implements OnInit {
     }
   }
 
-  getSectorName(sectorId) {
+  getSectorName(sectorId: number) {
     return this.cs.getSectorName(sectorId);
+  }
+
+  getCountyNameById(countyId: number) {
+    return this.cs.getCountyNameById(countyId);
+  }
+
+  getDistrictNameById(districtId: number, parentId: number) {
+    return this.cs.getDistrictNameById(districtId, parentId);
   }
 
   displayedColumns: string[] = ['name', '444444'];
@@ -132,16 +140,23 @@ export class AddProjectComponent implements OnInit {
 
   }
 
+countyId: string;
+  percent: number;
+  districtId: string;
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AadProjectLocationComponent, {
-      width: '400px'
+      width: '400px',
+      data: {countyId: this.countyId, districtId: this.districtId, percent: this.percent}
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      // alert(result);
       this.locationsArr.push(result);
+      console.log('-----------------------')
+      console.log(this.locationsArr);
     });
-    dialogRef.disableClose = true;
+    // dialogRef.disableClose = true;
   }
 
 

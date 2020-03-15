@@ -25,7 +25,7 @@
 <!--</div>-->
 
 
-<form [formGroup]="locationsForm">
+<!--<form [formGroup]="locationsForm">-->
   <h1 mat-dialog-title style="position: absolute">Add Project Location</h1>
 
   <button mat-button mat-dialog-close="true" style="margin-left: 300px">
@@ -35,7 +35,7 @@
   <div mat-dialog-content>
     <mat-form-field>
       <mat-label>County</mat-label>
-      <mat-select formControlName="county" (valueChange)="getDistrictByParentId($event)" required>
+      <mat-select (valueChange)="getDistrictByParentId($event)" required [(ngModel)]="location.countyId">
         <mat-option *ngFor="let county of counties" [value]="county.id">
           {{county.name}}
         </mat-option>
@@ -45,7 +45,7 @@
 
     <mat-form-field>
       <mat-label>District</mat-label>
-      <mat-select formControlName="district" required>
+      <mat-select required [(ngModel)]="location.districtId">
         <!--      <mat-select formControlName="district">-->
         <mat-option *ngFor="let district of districts" [value]="district.id">
           {{district.name}}
@@ -56,14 +56,14 @@
 
   <mat-form-field  type="number" style="text-align: center">
     <mat-label>%</mat-label>
-    <input matInput formControlName="percent">
+    <input matInput [(ngModel)]="location.percent">
   </mat-form-field>
 
 
   <div mat-dialog-actions>
 
 
-    <button mat-button class="sectorButton">Add</button>
+    <button mat-button class="sectorButton" [mat-dialog-close]="location" cdkFocusInitial>Add</button>
     <!--  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
   </div>
-</form>
+<!--</form>-->
