@@ -35,7 +35,7 @@
   <div mat-dialog-content>
     <mat-form-field>
       <mat-label>County</mat-label>
-      <mat-select (valueChange)="getDistrictByParentId($event)" required [(ngModel)]="location.countyId">
+      <mat-select (valueChange)="getDistrictByParentId($event)"  [(ngModel)]="location.countyId" required>
         <mat-option *ngFor="let county of counties" [value]="county.id">
           {{county.name}}
         </mat-option>
@@ -45,7 +45,7 @@
 
     <mat-form-field>
       <mat-label>District</mat-label>
-      <mat-select required [(ngModel)]="location.districtId">
+      <mat-select  [(ngModel)]="location.districtId" required>
         <!--      <mat-select formControlName="district">-->
         <mat-option *ngFor="let district of districts" [value]="district.id">
           {{district.name}}

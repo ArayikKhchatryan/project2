@@ -29,10 +29,10 @@ export class AadProjectLocationComponent implements OnInit {
   constructor(private cs: ClassifierServiceService, private fb: FormBuilder, private projectService: ProjectService, private dialogRef: MatDialogRef<AddProjectComponent>,
               @Inject(MAT_DIALOG_DATA) public location: location ) {
   }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+  //
+  // onNoClick(): void {
+  //   this.dialogRef.close();
+  // }
 
   ngOnInit(): void {
     this.counties = this.cs.getCountyClassifier();
@@ -42,7 +42,7 @@ export class AadProjectLocationComponent implements OnInit {
     this.districts = this.cs.getDistrictByParentId(id);
   }
 
-
+  //
   // locationsForm = this.fb.group({
   //   county: [],
   //   district: [],

@@ -9,6 +9,7 @@ import {AadProjectLocationComponent} from '../aad-project-location/aad-project-l
 import {MatDialog} from '@angular/material/dialog';
 import {ProjectService} from '../../services/project.service';
 import {LocationModel} from '../../model/location.model';
+import {ClassifiersModel} from '../../model/classifiers.model';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class AddProjectComponent implements OnInit {
 
   form1;
 
-  imp_statuses = this.cs.getImpStatusClassifier();
+  imp_statuses: ClassifiersModel[];
 
   sectors: any;
 
@@ -77,19 +78,26 @@ export class AddProjectComponent implements OnInit {
     //   this.locationsArr = res;
     // });
 
-    this.sectors = this.cs.getSectorsClassifier();
+    this.cs.getSectorsClassifier().subscribe((res) => {
+      this.sectors = res;
+    });
+
+    this.cs.getImpStatusClassifier().subscribe(res => {
+      this.imp_statuses = res;
+    });
 
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.id < 0) {
-      this.project = new ProjectModel('', null, null, 0, null, null, []);
+      this.project = new ProjectModel();
       this.addForm();
       this.isReady = true;
     } else {
-      this.projectService.getProjectById(this.id).subscribe(res => {
+      this.projectService?.getProjectById(this.id)?.subscribe(res => {
         // alert('Id incorrect');
         this.project = res;
         this.sectorsArr = this.project.sectors;
+        this.locationsArr = this.project.locations;
         console.log(this.project.sectors);
 
         this.addForm();
@@ -98,13 +106,8 @@ export class AddProjectComponent implements OnInit {
         this.getDate();
       }, ErrorMethod.getError);
     }
-
-
-    // else {
-    //   alert('Id incorrect');
-    // }
-
   }
+
 
   sectorsForm = this.fb.group({
     percent: [],
@@ -140,7 +143,7 @@ export class AddProjectComponent implements OnInit {
 
   }
 
-countyId: string;
+  countyId: string;
   percent: number;
   districtId: string;
 
@@ -153,7 +156,7 @@ countyId: string;
     dialogRef.afterClosed().subscribe(result => {
       // alert(result);
       this.locationsArr.push(result);
-      console.log('-----------------------')
+      console.log('-----------------------');
       console.log(this.locationsArr);
     });
     // dialogRef.disableClose = true;
@@ -182,7 +185,7 @@ countyId: string;
 
   saveProject() {
     const obj = this.form1.value;
-    this.project = new ProjectModel(obj.projectCode, obj.projectTitle, obj.description, obj.implementationStatus, obj.startDate, obj.endDate, this.sectorsArr);
+    this.project = new ProjectModel(obj.projectCode, obj.projectTitle, obj.description, obj.implementationStatus, obj.startDate, obj.endDate, this.sectorsArr, this.locationsArr);
 
     if (this.id < 0) {
       // console.log(this.project);

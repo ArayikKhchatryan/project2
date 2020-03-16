@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ClassifiersModel} from '../model/classifiers.model';
 import {ChildClassifierModel} from '../model/child-classifier.model';
+import {Observable, of} from 'rxjs';
+import {delay} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -53,12 +55,12 @@ export class ClassifierServiceService {
     return arr;
   }
 
-  getImpStatusClassifier(): ClassifiersModel[]{
-    return this.implementation_Status;
+  getImpStatusClassifier(): Observable<ClassifiersModel[]>{
+    return of(this.implementation_Status).pipe(delay(7000));
   }
 
-  getSectorsClassifier():  ClassifiersModel[]{
-    return this.sectors_classifier;
+  getSectorsClassifier():  Observable<ClassifiersModel[]>{
+    return of(this.sectors_classifier).pipe(delay(7000));
   }
 
   getSectorName(_id): string{
